@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doordash Quality Reviewer Program</title>
+    <link rel="shortcut icon" href="doordash-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        /* --- Reset & Basic Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'TT Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #191919;
+            line-height: 1.5;
+            background-color: #fff;
+        }
+
+        /* --- Branding Colors --- */
+        :root {
+            --brand-red: #EB1700;
+            --brand-dark: #191919;
+            --brand-gray: #F1F1F1;
+        }
+
+        /* --- Header --- */
+        header {
+            background: #fff;
+            padding: 0.8rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--brand-red);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--brand-dark);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--brand-gray);
+        }
+
+        .nav-cta {
+            background-color: var(--brand-red);
+            color: white;
+            border-radius: 24px;
+        }
+        
+        .nav-cta:hover {
+            background-color: #d11400;
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            background-color: #FFF0ED; /* Very light red/pink tint common in their branding */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.8rem 1.25rem;
+            min-height: 360px;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border-radius: 32px; /* Very rounded corners */
+            box-shadow: 0 20px 40px rgba(235, 23, 0, 0.1);
+            margin-top: 0.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        p.hero-sub {
+            font-size: 1.25rem;
+            /* margin-bottom: 2.5rem; */
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* --- The Main CTA Button --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--brand-red);
+            color: #fff;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px; /* Fully rounded pill shape */
+            transition: transform 0.2s ease, background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(235, 23, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #d11400;
+            transform: translateY(-2px);
+        }
+
+        /* --- Steps Section --- */
+        .steps-section {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+        }
+
+        .step-card {
+            text-align: left;
+        }
+
+        .step-number {
+            color: var(--brand-red);
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Comparison Table (Data Section) --- */
+        .earnings-section {
+            background-color: #FAFAFA;
+            padding: 2.75rem 2rem;
+            text-align: center;
+        }
+
+        .review-box {
+            background: white;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            text-align: left;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .review-item:last-child { border-bottom: none; }
+
+        .price-tag {
+            font-weight: bold;
+            color: var(--brand-red);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--brand-dark);
+            color: #fff;
+            padding: 3rem 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span>
+                <img src="doordash-logo.png" width="7%" alt="">
+                DOORDASH
+            </span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero row">
+            <div class="hero-text col-lg-6 col-sm-12 col-12">
+                <h1>Get Paid to Eat & Review.</h1>
+                <p class="hero-sub">Help us improve delivery quality in your city. Order food, rate the speed, and keep the meal—plus get paid for your time.</p>
+                <a href="https://trkio.org/aff_c?offer_id=1398&aff_id=158919" class="cta-button">Start Reviewing</a>
+            </div>
+        </div>
+        <div class="hero-image col-lg-6 col-sm-12 col-12"></div>
+    </div>
+    
+    <section class="steps-section">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">How it works</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <span class="step-number">01</span>
+                <h3>Apply</h3>
+                <p>Click "Start Reviewing" to Start.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-number">02</span>
+                <h3>Accept a Task</h3>
+                <p>We'll send you a review assignment. You choose when you want to work.</p>
+            </div>
+            <div class="step-card">
+                <span class="step-number">03</span>
+                <h3>Rate & Earn</h3>
+                <p>Fill out a 2-minute survey about food temperature and delivery speed. Get paid instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="earnings-section">
+        <h2 style="font-size: 2rem;">Earning Potential</h2>
+        <p>Average earnings per review task</p>
+        
+        <div class="review-box">
+            <div class="review-item">
+                <span>Meal Reimbursement</span>
+                <span class="price-tag">Up to $30.00</span>
+            </div>
+            <div class="review-item">
+                <span>Review Base Pay</span>
+                <span class="price-tag">$15.00</span>
+            </div>
+            <div class="review-item">
+                <span>Completing Survey (Bonus)</span>
+                <span class="price-tag">$5.00</span>
+            </div>
+            <div class="review-item" style="font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">
+                <span>Total Value</span>
+                <span class="price-tag">$50.00 / task</span>
+            </div>
+        </div>
+        
+        <a href="https://trkio.org/aff_c?offer_id=1398&aff_id=158919" class="cta-button">Apply to be a Reviewer</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <span style="font-weight:bold; font-size:1.2rem;">DOORDASH</span>
+                <br>Quality Assurance Program
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
